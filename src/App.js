@@ -25,12 +25,12 @@ class DynamicForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <FormJSON
           defaultFormDefinition={JSON.stringify(default_formdef, null, 2)}
           onInputChange={this.handleInputChange} />
         <FormHTML fields={this.state.formdef} />
-      </div>
+      </>
     );
   }
 }
