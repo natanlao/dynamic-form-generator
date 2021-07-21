@@ -122,8 +122,10 @@ class FormHTML extends React.Component {
 class InputField extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { value: '' };
+    // A checkgbox is either off or on, never null
+    this.state = { value: this.props.type === 'checkbox' ? 'off' : '' };
     this.handleChange = this.handleChange.bind(this);
+    this.props.onInputChange(this.state.value);
   }
 
   handleChange (event) {
