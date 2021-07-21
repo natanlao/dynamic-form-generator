@@ -11,7 +11,16 @@ class DynamicForm extends React.Component {
   }
 
   handleInputChange(formdef) {
-    this.setState({formdef: JSON.parse(formdef)});
+    // TODO: Spin this out for more robust validation
+    // TODO: Add warning
+    let value;
+    try {
+      value = JSON.parse(formdef);
+    } catch (e) {
+      value = [];
+    } finally {
+      this.setState({formdef: value});
+    }
   }
 
   render() {

@@ -47,6 +47,7 @@ I heavily leaned on the "Thinking in React" section of the React documentation.
 - Talk about why choosing uncontrolled components for forms
 - Talk about example input; does it make sense for developers to dictate
   attributes in that way?
+- Referenced MDN as a resource
 
 
 
