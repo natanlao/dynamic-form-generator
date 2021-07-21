@@ -2,30 +2,59 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+
+class DynamicForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.state = {formdef: []};
+  }
+
+  handleInputChange(formdef) {
+    this.setState({formdef: JSON.parse(formdef)});
+  }
+
+  render() {
+    return (
+      <div>
+        <FormJSON
+          defaultFormDefinition={JSON.stringify(default_formdef, null, 2)}
+          onInputChange={this.handleInputChange} />
+        <FormHTML fields={this.state.formdef} />
+      </div>
+    );
+  }
+}
+
+
 class FormJSON extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: this.props.defaultValue};
+    this.state = {formdef: this.props.defaultFormDefinition};
+    // TODO: Is this the best way to do this?
+    this.props.onInputChange(this.state.formdef);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({formdef: event.target.value});
     this.props.onInputChange(event.target.value);
-    console.log('foo');
   }
 
   render() {
     return (
       <form>
         <label>
-          Input JSON
-          <textarea value={this.state.value} onChange={this.handleChange} />
+          Form definition JSON
+          <textarea
+            value={this.state.formdef}
+            onChange={this.handleChange} />
         </label>
       </form>
     );
   }
 }
+
 
 class FormHTML extends React.Component {
   constructor(props) {
@@ -42,20 +71,18 @@ class FormHTML extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         {/* TODO: Is there a way to use JSX here? */}
-        {this.props.fields.map(field => React.createElement(fields[field.tag], field, null))}
+        {this.props.fields.map(field => React.createElement(fields[field.tag], Object.assign(field, {key: field.name}), null))}
         <input type="submit" value="Submit" />
       </form>
     );
   }
 }
 
-// TODO: How can I make this "private"?
-// TODO: React is complaining about a key still
+
 class InputField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
-
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -65,19 +92,19 @@ class InputField extends React.Component {
 
   render() {
     return (
-    <label key={this.props.name}>
+    <label>
       {this.props.human_label}
-      <input key={this.props.name}
-             type={this.props.type}
-             name={this.props.name}
-             onChange={this.handleChange} />
+      <input
+        type={this.props.type}
+        name={this.props.name}
+        onChange={this.handleChange} />
     </label>
     );
   }
 }
 
 
-const default_input = [
+const default_formdef = [
   {
     "tag": "input",
     "name": "first_name",
@@ -130,30 +157,6 @@ const default_input = [
 const fields = {
   "input": InputField,
 };
-
-class DynamicForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.state = {formdef: []};
-  }
-
-  // TODO: use standard naming convention
-  handleInputChange(formdef) {
-    this.setState({formdef: JSON.parse(formdef)});
-  }
-
-  render() {
-    return (
-      <div>
-        <FormJSON
-          defaultValue={JSON.stringify(default_input, null, 2)}
-          onInputChange={this.handleInputChange} />
-        <FormHTML fields={this.state.formdef} />
-      </div>
-    );
-  }
-}
 
 
 export default DynamicForm;
