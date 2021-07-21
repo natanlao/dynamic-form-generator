@@ -4,17 +4,17 @@ class DynamicForm extends React.Component {
   constructor (props) {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.state = { formdef: [] };
+    this.state = { formdef: [], error: null };
   }
 
   handleInputChange (formdef) {
     // TODO: Spin this out for more robust validation
-    // TODO: Add warning
+    this.setState({ error: null });
     let value;
     try {
       value = JSON.parse(formdef);
     } catch (e) {
-      console.log(e);
+      this.setState({ error: e.message });
       value = [];
     } finally {
       this.setState({ formdef: value });
@@ -29,7 +29,9 @@ class DynamicForm extends React.Component {
           onInputChange={this.handleInputChange}
         />
         <hr />
-        <FormHTML fields={this.state.formdef} />
+        {this.state.error
+          ? this.state.error
+          : <FormHTML fields={this.state.formdef} />}
       </>
     );
   }
