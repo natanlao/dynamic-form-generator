@@ -44,6 +44,9 @@ I heavily leaned on the "Thinking in React" section of the React documentation.
 - HTML validation?
 - Note: should field.name be unique? do we enforce this?
 - Move logic back into App.js?
+- Talk about why choosing uncontrolled components for forms
+- Talk about example input; does it make sense for developers to dictate
+  attributes in that way?
 
 
 
