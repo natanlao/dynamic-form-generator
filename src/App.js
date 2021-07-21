@@ -8,7 +8,6 @@ class DynamicForm extends React.Component {
   }
 
   handleInputChange (formdef) {
-    // TODO: Spin this out for more robust validation
     this.setState({ error: null });
     let value;
     try {
@@ -96,7 +95,6 @@ class FormHTML extends React.Component {
               onInputChange: (val) => { this.handleFieldChange(field.name, val); }
             };
 
-            // TODO: validate if has .conditional but not .conditional.name, etc.
             let display = true;
             if ('conditional' in field) {
               const arg = { [field.conditional.name]: '', ...this.state.fields }[field.conditional.name];
@@ -190,7 +188,7 @@ const defaultFormDef = [
   }
 ];
 
-// TODO: This pattern has a brittle coupling, assuming that field.type will
+// This pattern has a brittle coupling; it assumes that field.type will
 // correspond to a valid `type` attribute of the given tag. The actual tag
 // used should be an implementation detail; instead of choosing both `input`
 // and `type`, a developer ought to only have to choose a `type`.
