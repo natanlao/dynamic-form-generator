@@ -88,15 +88,30 @@ class FormHTML extends React.Component {
   render() {
     return (
       <form className="pure-form pure-form-stacked" onSubmit={this.handleSubmit}>
-        {/* TODO: Is there a way to use JSX here? */}
-        {this.props.fields.map(field =>
-          React.createElement(fields[field.tag],
-                              {
-                                ...field,
-                                key: field.name,
-                                onInputChange: (val) => { this.handleFieldChange(field.name, val); }
-                              },
-                              null))
+        {
+          this.props.fields.map(field => {
+            const props = {
+              ...field,
+              key: field.name,
+              onInputChange: (val) => { this.handleFieldChange(field.name, val); }
+            };
+
+            // TODO: validate if has .conditional but not .conditional.name, etc.
+            let display = true;
+            if ("conditional" in field) {
+              const arg = {[field.conditional.name]: '', ...this.state.fields}[field.conditional.name];
+              // Famous last words:
+              // eslint-disable-next-line
+              const show_if = Function('"use strict"; return (' + field.conditional.show_if + ')')();
+              display = show_if(arg);
+            }
+
+            if (display) {
+              return React.createElement(fields[field.tag], props, null);
+            } else {
+              return null;
+            }
+          })
         }
         <input className="pure-button" type="submit" value="Submit" />
       </form>
@@ -169,7 +184,7 @@ const default_formdef = [
     "human_label": "Parental Consent",
     "conditional": {
       "name": "date_of_birth",
-      "show_if": "(value) => { const now = new Date(); return value >= new Date(now.getFullYear() - 13, now.getMonth(), now.getDate()); }"
+      "show_if": "(value) => { const now = new Date(); return value >= new Date(now.getFullYear() - 13, now.getMonth(), now.getDate()).toISOString(); }"
     }
   }
 ]
