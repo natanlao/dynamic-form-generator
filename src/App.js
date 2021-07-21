@@ -17,6 +17,7 @@ class DynamicForm extends React.Component {
     try {
       value = JSON.parse(formdef);
     } catch (e) {
+      console.log(e);
       value = [];
     } finally {
       this.setState({formdef: value});
@@ -151,10 +152,7 @@ const default_formdef = [
     "human_label": "Parental Consent",
     "conditional": {
       "name": "date_of_birth",
-      "show_if": (value) => {
-        const now = new Date();
-          return value >= new Date(now.getFullYear() - 13, now.getMonth(), now.getDate());
-      }
+      "show_if": "(value) => { const now = new Date(); return value >= new Date(now.getFullYear() - 13, now.getMonth(), now.getDate()); }"
     }
   }
 ]

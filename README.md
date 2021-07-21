@@ -49,6 +49,8 @@ make the form usable with little overhead, though it's a little bland.
 
 ### Input schema
 
+Functions are not permissible in JSON, so I converted the `conditional.show_if`
+function provided in the example input to a string.
 
 ## TODO
 
