@@ -69,19 +69,35 @@ class FormJSON extends React.Component {
 class FormHTML extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {fields: {}};
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   handleSubmit(event) {
-    console.log(this.props.fields.map(field => event.target.elements[field.name].value));
+    console.log(this.state.fields);
     event.preventDefault();
+  }
+
+  handleFieldChange(name, value) {
+    // https://stackoverflow.com/a/171256/317076
+    // https://stackoverflow.com/a/19837961/317076
+    this.setState({"fields": {...this.state.fields, [name]: value}});
   }
 
   render() {
     return (
       <form className="pure-form pure-form-stacked" onSubmit={this.handleSubmit}>
         {/* TODO: Is there a way to use JSX here? */}
-        {this.props.fields.map(field => React.createElement(fields[field.tag], Object.assign(field, {key: field.name}), null))}
+        {this.props.fields.map(field =>
+          React.createElement(fields[field.tag],
+                              {
+                                ...field,
+                                key: field.name,
+                                onInputChange: (val) => { this.handleFieldChange(field.name, val); }
+                              },
+                              null))
+        }
         <input className="pure-button" type="submit" value="Submit" />
       </form>
     );
@@ -98,6 +114,7 @@ class InputField extends React.Component {
 
   handleChange(event) {
     this.setState({value: event.target.value});
+    this.props.onInputChange(event.target.value);
   }
 
   render() {
