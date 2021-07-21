@@ -52,7 +52,7 @@ class FormJSON extends React.Component {
 
   render() {
     return (
-      <form>
+      <form className="pure-form">
         <label>
           Form definition JSON
           <textarea
@@ -78,10 +78,10 @@ class FormHTML extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="pure-form pure-form-stacked" onSubmit={this.handleSubmit}>
         {/* TODO: Is there a way to use JSX here? */}
         {this.props.fields.map(field => React.createElement(fields[field.tag], Object.assign(field, {key: field.name}), null))}
-        <input type="submit" value="Submit" />
+        <input className="pure-button" type="submit" value="Submit" />
       </form>
     );
   }

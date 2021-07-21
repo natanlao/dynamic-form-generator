@@ -4,6 +4,8 @@ import './index.css';
 import DynamicForm from './App';
 import reportWebVitals from './reportWebVitals';
 
+require('purecss');
+
 ReactDOM.render(
   <React.StrictMode>
     <DynamicForm />
