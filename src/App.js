@@ -28,6 +28,7 @@ class DynamicForm extends React.Component {
           defaultFormDefinition={JSON.stringify(defaultFormDef, null, 2)}
           onInputChange={this.handleInputChange}
         />
+        <hr />
         <FormHTML fields={this.state.formdef} />
       </>
     );
@@ -50,7 +51,7 @@ class FormJSON extends React.Component {
 
   render () {
     return (
-      <form className='pure-form'>
+      <form className='pure-form pure-form-stacked'>
         <label>
           Form definition JSON
           <textarea
@@ -110,7 +111,7 @@ class FormHTML extends React.Component {
             }
           })
         }
-        <input className='pure-button' type='submit' value='Submit' />
+        <button className='pure-button' type='submit'>Submit</button>
       </form>
     );
   }
