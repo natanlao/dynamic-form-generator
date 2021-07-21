@@ -1,3 +1,53 @@
+# dynamic-form-generator
+
+
+## Timeline
+
+Total time spent:
+
+### Learning React
+
+I have some experience with Javascript, but not React. To learn enough to
+complete this challenge, I used these resources:
+
+1. **Basic literacy** Ran through the React tutorial and concepts guide on
+   [the React website](https://reactjs.org).
+
+2. **Understanding common use cases, problems, pitfalls** Found the React
+   subreddit and skimmed articles listed in the wiki. Skimmed top-ranked
+   articles and comments mentioning React on Hacker News.
+
+3. **Understanding common questions** Skimmed highest-voted React questions on
+   Stack Overflow.
+
+4. **Getting a hang of the syntax** Played around with the skeleton created by
+   create-react-app.
+
+Steps 2 and 3 were useful in building a general view of React, even if some of
+the more technical stuff flew over my head without more experience.
+
+This process took about 3 hours.
+
+### Designing prototype
+
+This process is largely documented in the commit history. In all, this took
+about 1.5 hours (so far!).
+
+I heavily leaned on the "Thinking in React" section of the React documentation.
+
+
+## TODO
+
+- Static type checking / linting
+- Accessibility!
+- Note: SSOT for backend and frontend processing of forms
+- HTML validation?
+- Note: should field.name be unique? do we enforce this?
+- Move logic back into App.js?
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
