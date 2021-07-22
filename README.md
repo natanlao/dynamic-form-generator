@@ -118,6 +118,12 @@ itself, to, for example:
 
 * verify that any field required by `.conditional.name` is present, etc.
 
+I would also think about the security implications of executing user-provided
+code (in the `conditional` block).
+
+That said, there are definitely valid reasons to do things this way, and I'm
+just spitballing and guessing what the context might be.
+
 ##### Users (The People Filling Out The Forms)
 
 To improve the experience of those filling out forms, we might:
